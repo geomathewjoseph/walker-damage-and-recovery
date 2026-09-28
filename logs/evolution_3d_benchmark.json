@@ -1,0 +1,151 @@
+{
+  "severities": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "mode": "neuron_kill",
+  "standard": [
+    {
+      "mean_reward": 316.58999048128874,
+      "std_reward": 0.0,
+      "min_reward": 316.58999048128874,
+      "max_reward": 316.58999048128874,
+      "mean_length": 71.0,
+      "mean_forward_vel": 1.5108666528068797,
+      "fall_rate": 0.0,
+      "mean_ctrl_cost": 1.428715467453003
+    },
+    {
+      "mean_reward": 279.6435701393576,
+      "std_reward": 0.0,
+      "min_reward": 279.6435701393576,
+      "max_reward": 279.6435701393576,
+      "mean_length": 62.0,
+      "mean_forward_vel": 1.5365169305474526,
+      "fall_rate": 0.0,
+      "mean_ctrl_cost": 1.4121427536010742
+    },
+    {
+      "mean_reward": 267.92208364669096,
+      "std_reward": 0.0,
+      "min_reward": 267.92208364669096,
+      "max_reward": 267.92208364669096,
+      "mean_length": 61.0,
+      "mean_forward_vel": 1.5141347701676557,
+      "fall_rate": 0.0,
+      "mean_ctrl_cost": 1.1910549402236938
+    },
+    {
+      "mean_reward": 249.354962259683,
+      "std_reward": 0.0,
+      "min_reward": 249.354962259683,
+      "max_reward": 249.354962259683,
+      "mean_length": 61.0,
+      "mean_forward_vel": 1.372890618797697,
+      "fall_rate": 0.0,
+      "mean_ctrl_cost": 1.0666292905807495
+    },
+    {
+      "mean_reward": 160.68032558978354,
+      "std_reward": 0.0,
+      "min_reward": 160.68032558978354,
+      "max_reward": 160.68032558978354,
+      "mean_length": 48.0,
+      "mean_forward_vel": 0.9920720538357273,
+      "fall_rate": 0.0,
+      "mean_ctrl_cost": 0.3922000825405121
+    },
+    {
+      "mean_reward": 159.77646777467385,
+      "std_reward": 0.0,
+      "min_reward": 159.77646777467385,
+      "max_reward": 159.77646777467385,
+      "mean_length": 49.0,
+      "mean_forward_vel": 0.9574950875676408,
+      "fall_rate": 0.0,
+      "mean_ctrl_cost": 0.2849755585193634
+    }
+  ],
+  "evolved": [
+    {
+      "mean_reward": 274.95420375765804,
+      "std_reward": 0.0,
+      "min_reward": 274.95420375765804,
+      "max_reward": 274.95420375765804,
+      "mean_length": 61.0,
+      "mean_forward_vel": 1.5452768689052003,
+      "fall_rate": 0.0,
+      "mean_ctrl_cost": 1.6465277671813965
+    },
+    {
+      "mean_reward": 247.11755045123755,
+      "std_reward": 0.0,
+      "min_reward": 247.11755045123755,
+      "max_reward": 247.11755045123755,
+      "mean_length": 56.0,
+      "mean_forward_vel": 1.5076748255773313,
+      "fall_rate": 0.0,
+      "mean_ctrl_cost": 1.6609954833984375
+    },
+    {
+      "mean_reward": 246.9050356812033,
+      "std_reward": 0.0,
+      "min_reward": 246.9050356812033,
+      "max_reward": 246.9050356812033,
+      "mean_length": 61.0,
+      "mean_forward_vel": 1.3617398551375162,
+      "fall_rate": 0.0,
+      "mean_ctrl_cost": 1.4151273965835571
+    },
+    {
+      "mean_reward": 250.00219609730433,
+      "std_reward": 0.0,
+      "min_reward": 250.00219609730433,
+      "max_reward": 250.00219609730433,
+      "mean_length": 64.0,
+      "mean_forward_vel": 1.2941740824317094,
+      "fall_rate": 0.0,
+      "mean_ctrl_cost": 1.1629838943481445
+    },
+    {
+      "mean_reward": 163.82272758671925,
+      "std_reward": 0.0,
+      "min_reward": 163.82272758671925,
+      "max_reward": 163.82272758671925,
+      "mean_length": 51.0,
+      "mean_forward_vel": 0.9330668110838708,
+      "fall_rate": 0.0,
+      "mean_ctrl_cost": 0.45741692185401917
+    },
+    {
+      "mean_reward": 165.55835788731898,
+      "std_reward": 0.0,
+      "min_reward": 165.55835788731898,
+      "max_reward": 165.55835788731898,
+      "mean_length": 53.0,
+      "mean_forward_vel": 0.8962741555681206,
+      "fall_rate": 0.0,
+      "mean_ctrl_cost": 0.2567334771156311
+    }
+  ],
+  "retention_standard": [
+    100.0,
+    88.32988361831524,
+    84.627465081694,
+    78.76274353481826,
+    50.75344465108101,
+    50.46794673823304
+  ],
+  "retention_evolved": [
+    100.0,
+    89.87589463045437,
+    89.79860366085654,
+    90.9250313981938,
+    59.581823208315456,
+    60.21306662153837
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "severity": 0.0,
+    "healthy_reward": 308.4,
+    "damaged_reward": 308.8,
+    "recovered_reward": 308.5
+  },
+  {
+    "severity": 0.1,
+    "healthy_reward": 308.4,
+    "damaged_reward": 307.4,
+    "recovered_reward": 14.3
+  },
+  {
+    "severity": 0.3,
+    "healthy_reward": 308.4,
+    "damaged_reward": -111.8,
+    "recovered_reward": 313.3
+  },
+  {
+    "severity": 0.5,
+    "healthy_reward": 308.4,
+    "damaged_reward": 59.1,
+    "recovered_reward": -108.5
+  },
+  {
+    "severity": 0.7,
+    "healthy_reward": 308.4,
+    "damaged_reward": -19.2,
+    "recovered_reward": 203.3
+  }
+]

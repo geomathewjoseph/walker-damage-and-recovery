@@ -1,0 +1,78 @@
+{
+  "ancestor_baseline": {
+    "mean_reward": 310.90719029559335,
+    "std_reward": 0.0,
+    "mean_length": 69.0,
+    "mean_forward_vel": 1.5577460759575816
+  },
+  "total_timesteps": 240000,
+  "total_elapsed_seconds": 164.88320970535278,
+  "average_fps": 1455.5757401186047,
+  "final_evolved_stats": {
+    "generation": 4,
+    "name": "Gen 4: Evolutionary Consolidation & Synaptic Hardening",
+    "severity": 0.0,
+    "mode": "none",
+    "steps": 60000,
+    "post_shock_reward": 261.75304504098597,
+    "post_shock_speed": 1.5376700479852952,
+    "recovered_reward": 279.26404655691255,
+    "recovered_speed": 1.5699557915570275,
+    "elapsed_seconds": 40.77848935127258,
+    "fps": 1471.3639704293648
+  },
+  "generations": [
+    {
+      "generation": 1,
+      "name": "Gen 1: Micro-Focal Ablation (10% Neuron Kill)",
+      "severity": 0.1,
+      "mode": "neuron_kill",
+      "steps": 60000,
+      "post_shock_reward": 301.8137506662451,
+      "post_shock_speed": 1.5404577457400805,
+      "recovered_reward": 306.3448918910123,
+      "recovered_speed": 1.5932827943852588,
+      "elapsed_seconds": 41.50552153587341,
+      "fps": 1445.5907980373581
+    },
+    {
+      "generation": 2,
+      "name": "Gen 2: Diffuse Synaptic Zeroing (15% Weight Zero)",
+      "severity": 0.15,
+      "mode": "weight_zero",
+      "steps": 60000,
+      "post_shock_reward": 163.0968692202728,
+      "post_shock_speed": 1.1777080446481705,
+      "recovered_reward": 250.0521409948453,
+      "recovered_speed": 1.4980327318069235,
+      "elapsed_seconds": 40.36154842376709,
+      "fps": 1486.5633837939854
+    },
+    {
+      "generation": 3,
+      "name": "Gen 3: Stochastic Synaptic Noise (20% Gaussian Perturbation)",
+      "severity": 0.2,
+      "mode": "noise_injection",
+      "steps": 60000,
+      "post_shock_reward": 242.08971068695362,
+      "post_shock_speed": 1.5093212430365384,
+      "recovered_reward": 261.75304504098597,
+      "recovered_speed": 1.5376700479852952,
+      "elapsed_seconds": 40.28419589996338,
+      "fps": 1489.4178389211572
+    },
+    {
+      "generation": 4,
+      "name": "Gen 4: Evolutionary Consolidation & Synaptic Hardening",
+      "severity": 0.0,
+      "mode": "none",
+      "steps": 60000,
+      "post_shock_reward": 261.75304504098597,
+      "post_shock_speed": 1.5376700479852952,
+      "recovered_reward": 279.26404655691255,
+      "recovered_speed": 1.5699557915570275,
+      "elapsed_seconds": 40.77848935127258,
+      "fps": 1471.3639704293648
+    }
+  ]
+}

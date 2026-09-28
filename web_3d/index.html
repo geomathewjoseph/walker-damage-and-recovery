@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Walker 3D — Robotics Neural Lesion & Motor Rehabilitation Lab</title>
+  <meta name="description" content="Research-grade 3D robotics simulation platform for analyzing neural lesions and neuroplastic motor rehabilitation on an articulated bipedal walker.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app-container">
+    <!-- 3D WebGL Canvas Container -->
+    <div id="canvas-container"></div>
+
+    <!-- Top Instrumentation Header -->
+    <header class="top-header">
+      <div class="header-left">
+        <div class="app-brand">
+          <span class="brand-title">AEGIS-3D</span>
+          <span class="brand-subtitle">Biorobotics Lab</span>
+        </div>
+        <div class="header-divider"></div>
+        <div class="project-info">
+          <span class="project-name">Neural Lesion & Motor Rehabilitation Benchmark</span>
+          <span class="project-meta">MuJoCo 3.13 · 8-DOF bipedal locomotion</span>
+        </div>
+      </div>
+      
+      <div class="header-right">
+        <!-- Technical Camera View Selector Toolbar -->
+        <div class="camera-mode-bar" id="camera-modes">
+          <button class="btn-cam-mode active" data-cam="orbit" id="btn-cam-orbit">Orbit</button>
+          <button class="btn-cam-mode" data-cam="chase" id="btn-cam-chase">Chase</button>
+          <button class="btn-cam-mode" data-cam="sagittal" id="btn-cam-sagittal">Sagittal</button>
+          <button class="btn-cam-mode" data-cam="top" id="btn-cam-top">Top</button>
+        </div>
+
+        <div class="status-indicator" id="global-status-badge">
+          <span class="status-dot" id="status-icon"></span>
+          <span class="status-text" id="status-text">Healthy · 100% integrity</span>
+        </div>
+
+        <button id="btn-reset-cam" class="btn-icon" title="Reset Camera View">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Left Experiment Control Sidebar -->
+    <aside class="panel-sidebar panel-left" id="main-control-panel">
+      <div class="panel-section-title">
+        <span>Experiment control</span>
+        <span class="section-meta" id="robot-badge" style="display:none;"></span>
+      </div>
+
+      <!-- Robot Chassis Architecture -->
+      <div class="control-group">
+        <label class="field-label">Robot model</label>
+        <div class="segmented-control three-col">
+          <button class="btn-segment btn-robot active" data-robot="xbot" id="btn-robot-xbot" title="Humanoid Bipedal Model">X-Bot 3D</button>
+          <button class="btn-segment btn-robot" data-robot="sparke" id="btn-robot-sparke" title="Bionic Automaton Model">Spark-E</button>
+          <button class="btn-segment btn-robot" data-robot="aegis" id="btn-robot-aegis" title="Articulated Cyber-Humanoid Android">Aegis Humanoid</button>
+        </div>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <!-- Policy Configuration Tier -->
+      <div class="control-group">
+        <label class="field-label">Policy architecture</label>
+        <div class="segmented-control two-col">
+          <button class="btn-segment btn-policy active" data-policy="standard" id="btn-policy-std" title="Standard PPO Policy">Standard PPO</button>
+          <button class="btn-segment btn-policy" data-policy="evolved" id="btn-policy-evo" title="Domain-Randomized Resilient Agent">Evolved Agent</button>
+        </div>
+        <span id="badge-policy-state" style="display:none;"></span>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <!-- Lesion Parameters -->
+      <div class="control-group lesion-group">
+        <div class="field-label-wrap">
+          <label class="field-label">Lesion severity</label>
+          <span class="field-value mono" id="val-severity-display">0%</span>
+        </div>
+        <input type="range" id="slider-severity" min="0" max="100" value="0" step="1" class="slider-technical">
+        <div class="slider-ticks">
+          <span>0%</span>
+          <span>10%</span>
+          <span>30%</span>
+          <span>50%</span>
+          <span>70%</span>
+          <span>100%</span>
+        </div>
+      </div>
+
+      <!-- Severity Preset Buttons -->
+      <div class="preset-row">
+        <button class="btn-preset active" data-sev="0.0">0%</button>
+        <button class="btn-preset" data-sev="0.1">10%</button>
+        <button class="btn-preset" data-sev="0.3">30%</button>
+        <button class="btn-preset" data-sev="0.5">50%</button>
+        <button class="btn-preset" data-sev="0.7">70%</button>
+      </div>
+
+      <!-- Damage Modality Selector -->
+      <div class="control-group">
+        <label class="field-label">Ablation modality</label>
+        <div class="modality-list">
+          <button class="btn-mode active" data-mode="neuron_kill">
+            <span class="mode-title">Neuron Kill</span>
+            <span class="mode-desc">Focal structural ablation</span>
+          </button>
+          <button class="btn-mode" data-mode="weight_zero">
+            <span class="mode-title">Weight Zero</span>
+            <span class="mode-desc">Diffuse synaptic zeroing</span>
+          </button>
+          <button class="btn-mode" data-mode="noise">
+            <span class="mode-title">Noise Injection</span>
+            <span class="mode-desc">Gaussian perturbation</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <!-- Experiment Actions -->
+      <div class="action-stack">
+        <button id="btn-apply-damage" class="btn-action btn-danger">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Inflict lesion
+        </button>
+        <button id="btn-rehabilitate" class="btn-action btn-primary">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Begin rehabilitation
+        </button>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <!-- Autonomous Continual Learning System -->
+      <div class="control-group">
+        <div class="field-label-wrap">
+          <label class="field-label">Autonomous self-learning</label>
+          <span class="field-meta" id="learning-status-pill">50 Hz Backprop</span>
+        </div>
+        <div class="toggles-stack">
+          <label class="toggle-row">
+            <input type="checkbox" id="chk-auto-heal" checked>
+            <span class="toggle-switch"></span>
+            <span class="toggle-text">Autonomous self-healing (closed-loop)</span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="chk-continuous-improve" checked>
+            <span class="toggle-switch"></span>
+            <span class="toggle-text">Continual gait optimization</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <!-- Testing Facility Environment -->
+      <div class="control-group">
+        <label class="field-label">Testing facility</label>
+        <div class="segmented-control three-col">
+          <button class="btn-segment btn-env active" data-env="hangar" id="btn-env-hangar" title="Aerospace Biorobotics Hangar (PBR + Gantry)">Hangar Lab</button>
+          <button class="btn-segment btn-env" data-env="cyber" id="btn-env-cyber" title="Cybernetics Research Lab (High-Contrast Laser Rig)">Cyber Lab</button>
+          <button class="btn-segment btn-env" data-env="studio" id="btn-env-studio" title="Clean Inspection Studio (Softbox HDR)">Studio</button>
+        </div>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <!-- Visualization Layers -->
+      <div class="control-group">
+        <label class="field-label">Visualization layers</label>
+        <div class="toggles-stack">
+          <label class="toggle-row">
+            <input type="checkbox" id="chk-gantry-harness" checked>
+            <span class="toggle-switch"></span>
+            <span class="toggle-text">Safety gantry & tether</span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="chk-mocap-towers" checked>
+            <span class="toggle-switch"></span>
+            <span class="toggle-text">MoCap optical towers</span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="chk-force-plates" checked>
+            <span class="toggle-switch"></span>
+            <span class="toggle-text">Dynamic GRF force plates</span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="chk-ghost-walker">
+            <span class="toggle-switch"></span>
+            <span class="toggle-text">Baseline reference ghost</span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="chk-neural-synapse" checked>
+            <span class="toggle-switch"></span>
+            <span class="toggle-text">Neural activation overlay</span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="chk-joint-forces" checked>
+            <span class="toggle-switch"></span>
+            <span class="toggle-text">Actuator force vectors</span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="chk-auto-cam">
+            <span class="toggle-switch"></span>
+            <span class="toggle-text">Follow camera</span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="chk-audio" checked>
+            <span class="toggle-switch"></span>
+            <span class="toggle-text">Audio feedback</span>
+          </label>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right Live Telemetry & Gait Analysis Panel -->
+    <aside class="panel-sidebar panel-right" id="telemetry-hud">
+      <div class="panel-section-title">
+        <span>Biomechanical telemetry</span>
+      </div>
+
+      <!-- Primary Metrics Grid -->
+      <div class="metrics-grid">
+        <div class="metric-cell">
+          <span class="metric-caption">Forward velocity</span>
+          <div class="metric-numerical">
+            <span class="metric-val mono" id="val-vx">1.48</span>
+            <span class="metric-unit">m/s</span>
+          </div>
+          <div class="metric-bar-track">
+            <div class="metric-bar-gauge" id="bar-vx" style="width: 74%;"></div>
+          </div>
+        </div>
+
+        <div class="metric-cell">
+          <span class="metric-caption">Episode reward</span>
+          <div class="metric-numerical">
+            <span class="metric-val mono" id="val-reward">+308.4</span>
+          </div>
+          <div class="metric-bar-track">
+            <div class="metric-bar-gauge" id="bar-reward" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <div class="metric-cell">
+          <span class="metric-caption">Chassis pitch</span>
+          <div class="metric-numerical">
+            <span class="metric-val mono" id="val-tilt">-1.2</span>
+            <span class="metric-unit">°</span>
+          </div>
+          <div class="metric-bar-track">
+            <div class="metric-bar-gauge warning" id="bar-tilt" style="width: 12%;"></div>
+          </div>
+        </div>
+
+        <div class="metric-cell">
+          <span class="metric-caption">Gait symmetry</span>
+          <div class="metric-numerical">
+            <span class="metric-val mono" id="val-symmetry">98.4</span>
+            <span class="metric-unit">%</span>
+          </div>
+          <div class="metric-bar-track">
+            <div class="metric-bar-gauge" id="bar-symmetry" style="width: 98%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <!-- Actuator Joint Torques -->
+      <div class="actuators-section">
+        <div class="field-label-wrap">
+          <label class="field-label">Actuator torques</label>
+          <span class="scale-label mono">±1.0 N·m</span>
+        </div>
+        
+        <div class="actuator-table">
+          <div class="actuator-entry">
+            <span class="act-name">Hip Roll L</span>
+            <div class="bipolar-gauge">
+              <div class="bipolar-datum"></div>
+              <div class="bipolar-bar" id="act-hip-roll-l"></div>
+            </div>
+            <span class="act-val mono" id="val-hip-roll-l">+0.05</span>
+          </div>
+
+          <div class="actuator-entry">
+            <span class="act-name">Hip Pitch L</span>
+            <div class="bipolar-gauge">
+              <div class="bipolar-datum"></div>
+              <div class="bipolar-bar" id="act-hip-pitch-l"></div>
+            </div>
+            <span class="act-val mono" id="val-hip-pitch-l">+0.62</span>
+          </div>
+
+          <div class="actuator-entry">
+            <span class="act-name">Knee L</span>
+            <div class="bipolar-gauge">
+              <div class="bipolar-datum"></div>
+              <div class="bipolar-bar" id="act-knee-l"></div>
+            </div>
+            <span class="act-val mono" id="val-knee-l">-0.45</span>
+          </div>
+
+          <div class="actuator-entry">
+            <span class="act-name">Ankle L</span>
+            <div class="bipolar-gauge">
+              <div class="bipolar-datum"></div>
+              <div class="bipolar-bar" id="act-ankle-l"></div>
+            </div>
+            <span class="act-val mono" id="val-ankle-l">-0.12</span>
+          </div>
+
+          <div class="actuator-entry">
+            <span class="act-name">Hip Roll R</span>
+            <div class="bipolar-gauge">
+              <div class="bipolar-datum"></div>
+              <div class="bipolar-bar" id="act-hip-roll-r"></div>
+            </div>
+            <span class="act-val mono" id="val-hip-roll-r">-0.05</span>
+          </div>
+
+          <div class="actuator-entry">
+            <span class="act-name">Hip Pitch R</span>
+            <div class="bipolar-gauge">
+              <div class="bipolar-datum"></div>
+              <div class="bipolar-bar" id="act-hip-pitch-r"></div>
+            </div>
+            <span class="act-val mono" id="val-hip-pitch-r">-0.38</span>
+          </div>
+
+          <div class="actuator-entry">
+            <span class="act-name">Knee R</span>
+            <div class="bipolar-gauge">
+              <div class="bipolar-datum"></div>
+              <div class="bipolar-bar" id="act-knee-r"></div>
+            </div>
+            <span class="act-val mono" id="val-knee-r">+0.82</span>
+          </div>
+
+          <div class="actuator-entry">
+            <span class="act-name">Ankle R</span>
+            <div class="bipolar-gauge">
+              <div class="bipolar-datum"></div>
+              <div class="bipolar-bar" id="act-ankle-r"></div>
+            </div>
+            <span class="act-val mono" id="val-ankle-r">+0.15</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ground Contact Phases -->
+      <div class="contact-grid">
+        <div class="contact-indicator on" id="contact-l">
+          <span class="contact-status-dot"></span>
+          <span class="contact-label">Left: Stance</span>
+        </div>
+        <div class="contact-indicator" id="contact-r">
+          <span class="contact-status-dot"></span>
+          <span class="contact-label">Right: Swing</span>
+        </div>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <!-- Actuator Response -->
+      <div class="chart-section">
+        <div class="field-label-wrap">
+          <label class="field-label">Actuator response</label>
+          <div class="chart-legend-wrap">
+            <span class="legend-item"><span class="legend-line line-hl"></span>Hip L</span>
+            <span class="legend-item"><span class="legend-line line-kl"></span>Knee L</span>
+            <span class="legend-item"><span class="legend-line line-hr"></span>Hip R</span>
+            <span class="legend-item"><span class="legend-line line-kr"></span>Knee R</span>
+          </div>
+        </div>
+        <div class="oscilloscope-frame">
+          <canvas id="canvas-oscilloscope" width="280" height="64"></canvas>
+        </div>
+      </div>
+
+      <!-- Real-Time Reinforcement Learning Loss & Convergence -->
+      <div class="chart-section">
+        <div class="field-label-wrap">
+          <label class="field-label">Policy convergence</label>
+          <div class="chart-legend-wrap">
+            <span class="legend-item"><span class="legend-line" style="background:#38bdf8;"></span>TD Error δ</span>
+            <span class="legend-item"><span class="legend-line" style="background:#10b981;"></span>Reward r</span>
+          </div>
+        </div>
+        <div class="oscilloscope-frame">
+          <canvas id="canvas-learning-curve" width="280" height="54"></canvas>
+        </div>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <!-- Neural Activation Matrix -->
+      <div class="matrix-section">
+        <div class="field-label-wrap">
+          <label class="field-label">Neural activation</label>
+          <span class="field-meta" id="matrix-status-badge">64 units</span>
+        </div>
+        <div class="matrix-frame">
+          <canvas id="canvas-neural-matrix" width="280" height="88"></canvas>
+        </div>
+        <div class="matrix-legend-row">
+          <span class="legend-pair"><span class="swatch firing"></span>Active</span>
+          <span class="legend-pair"><span class="swatch bypassed"></span>Compensated</span>
+          <span class="legend-pair"><span class="swatch ablated"></span>Ablated</span>
+        </div>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <!-- Data Export Suite -->
+      <div class="export-grid">
+        <button id="btn-export-csv" class="btn-utility" title="Export Recorded Telemetry to CSV">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export CSV
+        </button>
+        <button id="btn-export-json" class="btn-utility" title="Export Session State to JSON">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Export JSON
+        </button>
+      </div>
+    </aside>
+
+    <!-- Bottom Simulation Controls & Timeline -->
+    <footer class="bottom-hud" id="bottom-hud">
+      <div class="bottom-controls">
+        <button id="btn-play-pause" class="btn-playback" title="Play/Pause">
+          <svg id="icon-play" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="speed-selector">
+          <span class="speed-label">Speed</span>
+          <button class="btn-speed active" data-speed="1.0">1.0x</button>
+          <button class="btn-speed" data-speed="0.5">0.5x</button>
+          <button class="btn-speed" data-speed="2.0">2.0x</button>
+        </div>
+      </div>
+
+      <div class="bottom-timeline">
+        <div class="timeline-meta">
+          <span id="rehab-phase-text">Locomotion running normally</span>
+          <span id="rehab-pct-text">Rehabilitation 100%</span>
+        </div>
+        <div class="timeline-bar-track">
+          <div class="timeline-bar-gauge" id="rehab-bar-fill" style="width: 100%;"></div>
+        </div>
+      </div>
+
+      <div class="bottom-stats">
+        <div class="step-telemetry">
+          <span class="step-caption">Cycle step</span>
+          <span class="step-digits mono" id="val-step-count">0450</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Three.js, OrbitControls, GLTFLoader, and RGBELoader via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
+  <script src="neural_engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

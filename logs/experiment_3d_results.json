@@ -1,0 +1,46 @@
+[
+  {
+    "severity": 0.0,
+    "damage_mode": "neuron_kill",
+    "healthy_reward": 310.9071871359648,
+    "damaged_reward": 310.9071871359648,
+    "recovered_reward": 310.9071871359648,
+    "healthy_speed": 1.5577460892390513,
+    "damaged_speed": 1.5577460892390513,
+    "recovered_speed": 1.5577460892390513,
+    "recovery_percentage": 100.0
+  },
+  {
+    "severity": 0.1,
+    "damage_mode": "neuron_kill",
+    "healthy_reward": 310.9071871359648,
+    "damaged_reward": 274.1632535190647,
+    "recovered_reward": 291.241257427846,
+    "healthy_speed": 1.5577460892390513,
+    "damaged_speed": 1.4919259147275061,
+    "recovered_speed": 1.5224157491642418,
+    "recovery_percentage": 93.67466223946808
+  },
+  {
+    "severity": 0.3,
+    "damage_mode": "neuron_kill",
+    "healthy_reward": 310.9071871359648,
+    "damaged_reward": 244.30614085187563,
+    "recovered_reward": 271.53522540365543,
+    "healthy_speed": 1.5577460892390513,
+    "damaged_speed": 1.3913585182279349,
+    "recovered_speed": 1.4566056748735718,
+    "recovery_percentage": 87.33642599420148
+  },
+  {
+    "severity": 0.5,
+    "damage_mode": "neuron_kill",
+    "healthy_reward": 310.9071871359648,
+    "damaged_reward": 159.497123269945,
+    "recovered_reward": 230.19569596571256,
+    "healthy_speed": 1.5577460892390513,
+    "damaged_speed": 0.957495102240723,
+    "recovered_speed": 1.221359260200012,
+    "recovery_percentage": 74.04000469923014
+  }
+]

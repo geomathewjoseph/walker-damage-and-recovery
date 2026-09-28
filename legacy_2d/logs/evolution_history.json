@@ -1,0 +1,38 @@
+[
+  {
+    "generation": 1,
+    "name": "Generation 1: Focal Axon Ablation (10% Neuron Kill)",
+    "severity": 0.1,
+    "mode": "neuron_kill",
+    "steps": 75000,
+    "reward": 220.238525390625,
+    "elapsed_seconds": 41.65627408027649
+  },
+  {
+    "generation": 2,
+    "name": "Generation 2: Diffuse Synaptic Zeroing (15% Weight Zero)",
+    "severity": 0.15,
+    "mode": "weight_zero",
+    "steps": 75000,
+    "reward": 111.78907775878906,
+    "elapsed_seconds": 41.33283185958862
+  },
+  {
+    "generation": 3,
+    "name": "Generation 3: Stochastic Neuro-Perturbation (20% Gaussian Noise)",
+    "severity": 0.2,
+    "mode": "noise_injection",
+    "steps": 90000,
+    "reward": 173.98721313476562,
+    "elapsed_seconds": 39.67766523361206
+  },
+  {
+    "generation": 4,
+    "name": "Generation 4: Evolutionary Consolidation & Gait Synthesis",
+    "severity": 0.0,
+    "mode": "none",
+    "steps": 120000,
+    "reward": 317.18560791015625,
+    "elapsed_seconds": 57.13316512107849
+  }
+]
